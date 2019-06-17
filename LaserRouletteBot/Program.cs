@@ -45,8 +45,7 @@ namespace LaserRouletteBot
 	{
 		public string BotPrefix { get; private set; }
 		public string BotToken { get; private set; }
-		public List<string> Commands = new List<string>(); 
 
-		public static readonly Config Default = new Config { BotPrefix = "!", BotToken = "", Commands = {"russian", "roulette", "rtfaq"} };
+		public static readonly Config Default = new Config { BotPrefix = "!", BotToken = "" };
 	}
 }
