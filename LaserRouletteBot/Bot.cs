@@ -44,8 +44,13 @@ namespace LaserRouletteBot
 			if (context.Message.Content.ToLower().Contains("ping"))
 				await context.Channel.SendMessageAsync("Pong!");
 			if (context.Message.Content.Contains("roulette"))
-				if (barrel.Next(6) == 6) 
+			{
+				if (barrel.Next(6) == 6)
 					await DoKickAsync(context);
+				else
+					await context.Channel.SendMessageAsync("They were lucky.. This time..");
+			}
+
 		}
 
 		private static async Task DoKickAsync(ICommandContext context)
@@ -70,9 +75,9 @@ namespace LaserRouletteBot
 			IEnumerable<IGuildUser> users = context.Guild.GetUsersAsync(CacheMode.CacheOnly).Result.Where(u =>
 				ulong.TryParse(name, out ulong result) ? u.Id == result : u.Username == name);
 			IGuildUser usr = users.OrderBy(u => u.Username.Length).First();
-			await usr.KickAsync();
 			await usr.SendMessageAsync(
 				"You have been yeeted for asking a dumb question. Please read the FAQ upon re-joining.");
+			await usr.KickAsync();
 		}
 	}
 }
